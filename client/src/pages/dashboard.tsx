@@ -16,7 +16,7 @@ import {
   Box,
   useTheme
 } from "@mui/material";
-import DashboardLayout from "../components/layout/DashboardLayout";
+import DashboardLayout from "../components/DashboardLayout";
 import StatCard from "../components/dashboard/StatCard";
 import ChartCard from "../components/dashboard/ChartCard";
 import ClientsTable from "../components/dashboard/ClientsTable";

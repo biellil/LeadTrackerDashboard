@@ -12,7 +12,7 @@ const DashboardWrapper = styled.div`
   display: flex;
 `;
 
-const MainContent = styled.div<{ isSidebarOpen: boolean }>`
+const MainContent = styled.div<{ $isSidebarOpen: boolean }>`
   flex: 1;
   margin-left: 0;
   transition: margin-left 0.3s ease;
@@ -21,7 +21,7 @@ const MainContent = styled.div<{ isSidebarOpen: boolean }>`
   flex-direction: column;
   
   @media (min-width: 768px) {
-    margin-left: ${props => props.isSidebarOpen ? '16rem' : '5rem'};
+    margin-left: ${props => props.$isSidebarOpen ? '16rem' : '5rem'};
   }
 `;
 
