@@ -16,12 +16,12 @@ import {
   Box,
   useTheme
 } from "@mui/material";
-import DashboardLayout from "@/components/layout/DashboardLayout";
-import StatCard from "@/components/dashboard/StatCard";
-import ChartCard from "@/components/dashboard/ChartCard";
-import ClientsTable from "@/components/dashboard/ClientsTable";
-import DetailPanel from "@/components/dashboard/DetailPanel";
-import { ClienteWithNegocio } from "@/types/client";
+import DashboardLayout from "../components/layout/DashboardLayout";
+import StatCard from "../components/dashboard/StatCard";
+import ChartCard from "../components/dashboard/ChartCard";
+import ClientsTable from "../components/dashboard/ClientsTable";
+import DetailPanel from "../components/dashboard/DetailPanel";
+import { ClienteWithNegocio } from "../types/client";
 import { 
   AreaChart, 
   Area, 
@@ -249,6 +249,7 @@ const Dashboard = () => {
   const neonRed = "#ef4444";
   const neonYellow = "#f59e0b";
   
+
   return (
     <DashboardLayout title="Dashboard de Clientes">
       {/* Quick Stats */}
