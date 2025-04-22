@@ -2,104 +2,120 @@ import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import styled from "styled-components";
 import { 
-  LayoutDashboard, 
-  Users, 
-  LineChart, 
-  Briefcase, 
-  Settings, 
-  HelpCircle,
-  Bot,
-  X,
-} from "lucide-react";
+  Drawer, 
+  Box, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText,
+  Divider,
+  IconButton,
+  Typography,
+  Avatar
+} from "@mui/material";
+import { 
+  Dashboard as DashboardIcon,
+  People as PeopleIcon,
+  BarChart as BarChartIcon,
+  BusinessCenter as BusinessCenterIcon,
+  SmartToy as BotIcon,
+  Close as CloseIcon,
+} from '@mui/icons-material';
 
-const SidebarContainer = styled.div<{ isOpen: boolean }>`
+const drawerWidth = 240;
+
+const SidebarContainer = styled(Box)<{ isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  width: 16rem;
+  width: ${drawerWidth}px;
   height: 100vh;
-  background-color: hsl(var(--space-gray));
-  border-right: 1px solid hsl(var(--border));
+  background-color: ${props => props.theme.colors.spaceBlack};
+  border-right: 1px solid ${props => props.theme.colors.border};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  z-index: 30;
+  z-index: 1300;
   transition: transform 0.3s ease;
   
   @media (max-width: 768px) {
     transform: ${({ isOpen }) => isOpen ? 'translateX(0)' : 'translateX(-100%)'};
   }
-`;
 
-const SidebarHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid hsl(var(--border));
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-const LogoIcon = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-`;
-
-const SidebarNav = styled.nav`
-  margin-top: 1.5rem;
-  padding: 0 1rem;
-`;
-
-const NavItem = styled(Link)<{ $active: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  color: ${({ $active }) => $active ? 'white' : 'hsl(var(--muted-foreground))'};
-  background-color: ${({ $active }) => $active ? 'transparent' : 'transparent'};
-  background: ${({ $active }) => $active ? 'linear-gradient(to right, hsl(var(--neon-blue)), hsl(var(--neon-purple)))' : 'transparent'};
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: ${({ $active }) => $active ? '0 4px 12px rgba(0, 0, 0, 0.2)' : 'none'};
-  
-  &:hover {
-    background-color: ${({ $active }) => $active ? 'transparent' : 'hsl(var(--muted))'};
+  @media (min-width: 768px) {
+    transform: translateX(0);
   }
 `;
 
-const IconWrapper = styled.span`
-  margin-right: 0.75rem;
-  display: inline-flex;
+const SidebarHeader = styled(Box)`
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: ${props => props.theme.space[4]};
+  border-bottom: 1px solid ${props => props.theme.colors.border};
 `;
 
-const FooterSection = styled.div`
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid hsl(var(--border));
+const Logo = styled(Box)`
+  display: flex;
+  align-items: center;
+  gap: ${props => props.theme.space[2]};
 `;
 
-const Overlay = styled.div<{ isOpen: boolean }>`
+const LogoIcon = styled(Avatar)`
+  background-image: ${props => props.theme.gradients.bluePurple};
+  color: white;
+  width: ${props => props.theme.space[8]};
+  height: ${props => props.theme.space[8]};
+`;
+
+const LogoText = styled(Typography)`
+  font-weight: 700;
+  font-size: ${props => props.theme.fontSizes.xl};
+  color: ${props => props.theme.colors.foreground};
+`;
+
+const StyledNavItem = styled(ListItemButton)<{ $active: boolean }>`
+  margin: ${props => props.theme.space[1]} 0;
+  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${props => props.theme.space[2]} ${props => props.theme.space[4]};
+  background: ${props => props.$active ? props.theme.gradients.bluePurple : 'transparent'};
+  box-shadow: ${props => props.$active ? props.theme.boxShadow.neonBlue : 'none'};
+  
+  &:hover {
+    background-color: ${props => props.$active ? 'transparent' : 'rgba(255, 255, 255, 0.08)'};
+  }
+
+  .MuiListItemIcon-root {
+    color: ${props => props.$active ? 'white' : props.theme.colors.mutedForeground};
+    min-width: 40px;
+  }
+
+  .MuiListItemText-primary {
+    color: ${props => props.$active ? 'white' : props.theme.colors.mutedForeground};
+    font-weight: ${props => props.$active ? '600' : '400'};
+  }
+`;
+
+const Overlay = styled(Box)<{ isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20;
+  z-index: 1200;
   display: ${({ isOpen }) => isOpen ? 'block' : 'none'};
   
   @media (min-width: 768px) {
     display: none;
+  }
+`;
+
+const StyledCloseButton = styled(IconButton)`
+  color: ${props => props.theme.colors.mutedForeground};
+  
+  &:hover {
+    color: ${props => props.theme.colors.foreground};
+    background-color: rgba(255, 255, 255, 0.08);
   }
 `;
 
@@ -131,53 +147,40 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     }
   };
 
+  const navItems = [
+    { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
+    { text: "Clientes", icon: <PeopleIcon />, path: "/clientes" },
+    { text: "Análises", icon: <BarChartIcon />, path: "/analises" },
+    { text: "Negócios", icon: <BusinessCenterIcon />, path: "/negocios" },
+  ];
+
   return (
     <>
       <SidebarContainer isOpen={isOpen}>
         <SidebarHeader>
           <Logo>
-            <LogoIcon className="gradient-blue-purple">
-              <Bot size={20} />
+            <LogoIcon>
+              <BotIcon fontSize="small" />
             </LogoIcon>
-            <h1 className="text-xl font-bold text-white">SDR IA</h1>
+            <LogoText variant="h6">SDR IA</LogoText>
           </Logo>
-          <button className="md:hidden text-gray-400 hover:text-white" onClick={onClose}>
-            <X size={20} />
-          </button>
+          {isMobile && (
+            <StyledCloseButton size="small" onClick={onClose} aria-label="fechar">
+              <CloseIcon fontSize="small" />
+            </StyledCloseButton>
+          )}
         </SidebarHeader>
         
-        <SidebarNav>
-          <div className="space-y-1">
-            <NavItem href="/" $active={location === "/"} onClick={handleClick}>
-              <IconWrapper>
-                <LayoutDashboard size={20} />
-              </IconWrapper>
-              <span>Dashboard</span>
-            </NavItem>
-            
-            <NavItem href="/clientes" $active={location === "/clientes"} onClick={handleClick}>
-              <IconWrapper>
-                <Users size={20} />
-              </IconWrapper>
-              <span>Clientes</span>
-            </NavItem>
-            
-            <NavItem href="/analises" $active={location === "/analises"} onClick={handleClick}>
-              <IconWrapper>
-                <LineChart size={20} />
-              </IconWrapper>
-              <span>Análises</span>
-            </NavItem>
-            
-            <NavItem href="/negocios" $active={location === "/negocios"} onClick={handleClick}>
-              <IconWrapper>
-                <Briefcase size={20} />
-              </IconWrapper>
-              <span>Negócios</span>
-            </NavItem>
-            
-          </div>
-        </SidebarNav>
+        <List sx={{ p: 2 }}>
+          {navItems.map((item) => (
+            <ListItem key={item.path} component={Link} href={item.path} disablePadding>
+              <StyledNavItem $active={location === item.path} onClick={handleClick}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </StyledNavItem>
+            </ListItem>
+          ))}
+        </List>
       </SidebarContainer>
       
       <Overlay isOpen={isOpen} onClick={onClose} />

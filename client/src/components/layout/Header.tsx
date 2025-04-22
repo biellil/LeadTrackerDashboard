@@ -1,21 +1,21 @@
 import styled from "styled-components";
 import { Search, Bell, Menu } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { AppBar, Toolbar, Typography, IconButton, InputBase, Badge, Box } from "@mui/material";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
-const HeaderContainer = styled.header`
-  background-color: hsl(var(--space-gray));
-  border-bottom: 1px solid hsl(var(--border));
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const HeaderContainer = styled(AppBar)`
+  background-color: ${props => props.theme.colors.spaceGray} !important;
+  border-bottom: 1px solid ${props => props.theme.colors.border};
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
   position: sticky;
   top: 0;
   z-index: 20;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  color: ${props => props.theme.colors.foreground};
 `;
 
-const HeaderSection = styled.div`
+const HeaderSection = styled(Box)`
   display: flex;
   align-items: center;
 `;
@@ -23,57 +23,55 @@ const HeaderSection = styled.div`
 const SearchContainer = styled.div`
   position: relative;
   margin-right: 1rem;
-`;
-
-const SearchIcon = styled.div`
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: hsl(var(--muted-foreground));
-`;
-
-const NotificationButton = styled.button`
-  position: relative;
-  padding: 0.5rem;
-  color: hsl(var(--muted-foreground));
-  transition: color 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 0.25rem 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
   
   &:hover {
-    color: white;
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+`;
+
+const StyledInputBase = styled(InputBase)`
+  color: inherit;
+  width: 100%;
+  min-width: 150px;
+  margin-left: 0.5rem;
+  font-size: ${props => props.theme.fontSizes.sm};
+
+  .MuiInputBase-input {
+    padding: 0.5rem 0;
+  }
+`;
+
+const StyledIconButton = styled(IconButton)`
+  color: ${props => props.theme.colors.mutedForeground};
+  
+  &:hover {
+    color: ${props => props.theme.colors.foreground};
+    background-color: rgba(255, 255, 255, 0.08);
   }
 `;
 
 const NotificationIndicator = styled.span`
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${props => props.theme.colors.neonRed};
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: hsl(var(--neon-red));
+  top: 5px;
+  right: 5px;
 `;
 
-const ProfileSection = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
-`;
-
-const Avatar = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: linear-gradient(to right, hsl(var(--neon-purple)), hsl(var(--neon-blue)));
-`;
-
-const Username = styled.span`
+const TitleTypography = styled(Typography)`
+  font-weight: 600;
+  font-size: ${props => props.theme.fontSizes.xl};
+  color: ${props => props.theme.colors.foreground};
   margin-left: 0.5rem;
-  font-size: 0.875rem;
-  
-  @media (max-width: 640px) {
-    display: none;
-  }
 `;
 
 interface HeaderProps {
@@ -83,33 +81,37 @@ interface HeaderProps {
 
 const Header = ({ title, onOpenSidebar }: HeaderProps) => {
   return (
-    <HeaderContainer>
-      <HeaderSection>
-        <button className="md:hidden mr-4 text-gray-400 hover:text-white" onClick={onOpenSidebar}>
-          <Menu size={20} />
-        </button>
-        <h2 className="text-xl font-semibold">{title}</h2>
-      </HeaderSection>
-      
-      <HeaderSection>
-        <SearchContainer>
-          <Input 
-            type="text" 
-            placeholder="Buscar..." 
-            className="bg-gray-700 px-4 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--neon-blue))] w-full min-w-[200px]" 
-          />
-          <SearchIcon>
-            <Search size={16} />
-          </SearchIcon>
-        </SearchContainer>
+    <HeaderContainer elevation={0} position="sticky">
+      <Toolbar>
+        <HeaderSection sx={{ flex: 1 }}>
+          <StyledIconButton 
+            edge="start" 
+            aria-label="menu"
+            onClick={onOpenSidebar}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
+            <MenuIcon />
+          </StyledIconButton>
+          <TitleTypography variant="h6" noWrap>
+            {title}
+          </TitleTypography>
+        </HeaderSection>
         
-        <NotificationButton>
-          <Bell size={20} />
-          <NotificationIndicator />
-        </NotificationButton>
-        
-
-      </HeaderSection>
+        <HeaderSection>
+          <SearchContainer>
+            <SearchIcon sx={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.7)' }} />
+            <StyledInputBase
+              placeholder="Buscar..."
+              inputProps={{ 'aria-label': 'buscar' }}
+            />
+          </SearchContainer>
+          
+          <StyledIconButton aria-label="notifications" sx={{ position: 'relative' }}>
+            <NotificationsIcon />
+            <NotificationIndicator />
+          </StyledIconButton>
+        </HeaderSection>
+      </Toolbar>
     </HeaderContainer>
   );
 };
