@@ -12,6 +12,7 @@ import {
   LineChart as LineChartIcon, 
   BanknoteIcon
 } from "lucide-react";
+<<<<<<< HEAD
 import { 
   Box,
   useTheme
@@ -22,18 +23,17 @@ import ChartCard from "../components/dashboard/ChartCard";
 import ClientsTable from "../components/dashboard/ClientsTable";
 import DetailPanel from "../components/dashboard/DetailPanel";
 import { ClienteWithNegocio } from "../types/client";
+=======
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import StatCard from "@/components/dashboard/StatCard";
+import ChartCard from "@/components/dashboard/ChartCard";
+import ClientsTable from "@/components/dashboard/ClientsTable";
+import DetailPanel from "@/components/dashboard/DetailPanel";
+import { ClienteWithNegocio } from "@/types/client";
+>>>>>>> parent of 910a94a (Revamp dashboard visuals and animations for a more engaging experience)
 import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  PieChart as RechartsPieChart, 
-  Pie, 
-  Cell,
-  Legend
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart as RechartsPieChart, Pie, Cell
 } from "recharts";
 
 const GridContainer = styled.div`
