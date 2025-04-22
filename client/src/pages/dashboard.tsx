@@ -17,9 +17,9 @@ import {
   useTheme
 } from "@mui/material";
 import DashboardLayout from "../components/DashboardLayout";
-import StatCard from "../components/dashboard/StatCard";
-import ChartCard from "../components/dashboard/ChartCard";
-import ClientsTable from "../components/dashboard/ClientsTable";
+import StatCard from "../components/StatCard";
+import ChartCard from "../components/ChartCard";
+import ClientsTable from "../components/ClientsTable";
 import DetailPanel from "../components/dashboard/DetailPanel";
 import { ClienteWithNegocio } from "../types/client";
 import { 
@@ -40,11 +40,11 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @media (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -55,7 +55,7 @@ const ChartGrid = styled.div`
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: 2rem;
-  
+
   @media (min-width: 1024px) {
     grid-template-columns: 2fr 1fr;
   }
@@ -241,14 +241,14 @@ const Dashboard = () => {
   };
 
   const theme = useTheme();
-  
+
   // Cores personalizadas para os gráficos
   const neonBlue = "#3b82f6";
   const neonPurple = "#8b5cf6";
   const neonGreen = "#10b981";
   const neonRed = "#ef4444";
   const neonYellow = "#f59e0b";
-  
+
 
   return (
     <DashboardLayout title="Dashboard de Clientes">
@@ -263,7 +263,7 @@ const Dashboard = () => {
           iconBgColor={`${neonBlue}33`}
           accentColor={neonBlue}
         />
-        
+
         <StatCard 
           title="Novos Leads"
           value="32"
@@ -273,7 +273,7 @@ const Dashboard = () => {
           iconBgColor={`${neonPurple}33`}
           accentColor={neonPurple}
         />
-        
+
         <StatCard 
           title="Conversão"
           value="68%"
@@ -284,7 +284,7 @@ const Dashboard = () => {
           iconBgColor={`${neonGreen}33`}
           accentColor={neonGreen}
         />
-        
+
         <StatCard 
           title="Automação IA"
           value="78%"
@@ -295,7 +295,7 @@ const Dashboard = () => {
           accentColor={neonRed}
         />
       </GridContainer>
-      
+
       {/* Charts Section */}
       <ChartGrid>
         <ChartCard 
@@ -376,7 +376,7 @@ const Dashboard = () => {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
-        
+
         <ChartCard 
           title="Uso de Automação CRM" 
           icon={<BarChart2 size={18} color={neonBlue} />}
@@ -439,7 +439,7 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </ChartCard>
       </ChartGrid>
-      
+
       {/* Clients Table */}
       <Box sx={{ mt: 4 }}>
         <ClientsTable 
@@ -451,7 +451,7 @@ const Dashboard = () => {
           onAddClient={handleAddClient}
         />
       </Box>
-      
+
       {/* Detail Panels */}
       <Box sx={{ mt: 4 }}>
         <DetailPanel 
