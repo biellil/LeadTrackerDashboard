@@ -265,7 +265,7 @@ const DetailPanel = ({ segmentos, iaMetrics, challenges }: DetailPanelProps) => 
       <PanelCard>
         <PanelHeader>
           <PanelTitle>
-            <IconWrapper $color="hsl(var(--neon-green)">
+            <IconWrapper $color="hsl(var(--neon-green))">
               <Target size={20} />
             </IconWrapper>
             Principais Desafios

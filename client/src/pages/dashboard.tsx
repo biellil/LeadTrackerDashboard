@@ -12,11 +12,8 @@ import {
   LineChart as LineChartIcon, 
   BanknoteIcon
 } from "lucide-react";
-import { 
-  Box,
-  Grid,
-  useTheme
-} from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import DashboardLayout from "../components/DashboardLayout";
 import StatCard from "../components/StatCard";
 import ChartCard from "../components/ChartCard";
