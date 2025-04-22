@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ArrowUp, ArrowDown, Equal } from "lucide-react";
 import { motion } from "framer-motion";
+import { Paper } from "@mui/material";
 
 type StatsChangeType = "increase" | "decrease" | "unchanged";
 
@@ -16,70 +17,84 @@ interface StatCardProps {
 }
 
 const CardContainer = styled(motion.div)`
-  background-color: hsl(var(--dark-panel));
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid hsl(var(--border));
+  background-color: ${props => props.theme.colors.card};
+  border-radius: ${props => props.theme.borderRadius.lg};
+  padding: ${props => props.theme.space[6]};
+  box-shadow: ${props => props.theme.boxShadow.lg};
+  border: 1px solid ${props => props.theme.colors.border};
   position: relative;
   overflow: hidden;
+  height: 100%;
+  cursor: pointer;
 `;
 
 const CardContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  position: relative;
+  z-index: 2;
 `;
 
-const CardInfo = styled.div``;
+const CardInfo = styled.div`
+  flex: 1;
+`;
 
 const CardTitle = styled.p`
-  color: hsl(var(--muted-foreground));
-  font-size: 0.875rem;
+  color: ${props => props.theme.colors.mutedForeground};
+  font-size: ${props => props.theme.fontSizes.sm};
 `;
 
 const CardValue = styled.h3`
-  font-size: 1.875rem;
+  font-size: ${props => props.theme.fontSizes["3xl"]};
   font-weight: 700;
-  margin-top: 0.25rem;
+  margin-top: ${props => props.theme.space[1]};
+  color: ${props => props.theme.colors.foreground};
 `;
 
-const CardChange = styled.p<{ color: string }>`
+const CardChange = styled.div<{ $color: string }>`
   display: flex;
   align-items: center;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  color: ${({ color }) => color};
+  font-size: ${props => props.theme.fontSizes.sm};
+  margin-top: ${props => props.theme.space[2]};
+  color: ${props => props.$color};
 `;
 
 const ChangeLabel = styled.span`
-  color: hsl(var(--muted-foreground));
-  margin-left: 0.25rem;
+  color: ${props => props.theme.colors.mutedForeground};
+  margin-left: ${props => props.theme.space[1]};
 `;
 
-const IconWrapper = styled.div<{ bgColor: string }>`
+const ChangeValue = styled.span`
+  margin-left: ${props => props.theme.space[1]};
+`;
+
+const IconWrapper = styled.div<{ $bgColor: string }>`
   width: 3rem;
   height: 3rem;
-  border-radius: 0.5rem;
+  border-radius: ${props => props.theme.borderRadius.md};
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: ${props => props.$bgColor};
+  color: white;
 `;
 
-const BackgroundDecoration = styled.div<{ accentColor: string }>`
+const BackgroundDecoration = styled.div<{ $accentColor: string }>`
   position: absolute;
   top: -1rem;
   right: -1rem;
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
-  background-color: ${({ accentColor }) => accentColor};
+  background-color: ${props => props.$accentColor};
   opacity: 0.1;
   transition: opacity 0.3s ease;
+  z-index: 1;
   
   ${CardContainer}:hover & {
-    opacity: 0.2;
+    opacity: 0.15;
+    transform: scale(1.1);
   }
 `;
 
@@ -94,9 +109,9 @@ const StatCard = ({
   accentColor
 }: StatCardProps) => {
   const getChangeColor = () => {
-    if (changeType === "increase") return "hsl(var(--neon-green))";
-    if (changeType === "decrease") return "hsl(var(--neon-red))";
-    return "hsl(var(--neon-yellow))";
+    if (changeType === "increase") return "#10b981"; // neonGreen
+    if (changeType === "decrease") return "#ef4444"; // neonRed
+    return "#f59e0b"; // neonYellow
   };
   
   const getChangeIcon = () => {
@@ -107,21 +122,23 @@ const StatCard = ({
   
   return (
     <CardContainer
-      whileHover={{ translateY: -5 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
     >
-      <BackgroundDecoration accentColor={accentColor} />
+      <BackgroundDecoration $accentColor={accentColor} />
       <CardContent>
         <CardInfo>
           <CardTitle>{title}</CardTitle>
           <CardValue>{value}</CardValue>
-          <CardChange color={getChangeColor()}>
+          <CardChange $color={getChangeColor()}>
             {getChangeIcon()}
-            <span className="ml-1">{change}%</span>
+            <ChangeValue>{change}%</ChangeValue>
             <ChangeLabel>{changeLabel}</ChangeLabel>
           </CardChange>
         </CardInfo>
-        <IconWrapper bgColor={iconBgColor}>
+        <IconWrapper $bgColor={iconBgColor}>
           {icon}
         </IconWrapper>
       </CardContent>
