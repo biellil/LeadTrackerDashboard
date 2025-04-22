@@ -13,9 +13,8 @@ import {
   BanknoteIcon
 } from "lucide-react";
 import { 
-  Grid, 
   Box,
-  useTheme 
+  useTheme
 } from "@mui/material";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/dashboard/StatCard";
@@ -241,6 +240,15 @@ const Dashboard = () => {
     console.log("Add new client");
   };
 
+  const theme = useTheme();
+  
+  // Cores personalizadas para os gráficos
+  const neonBlue = "#3b82f6";
+  const neonPurple = "#8b5cf6";
+  const neonGreen = "#10b981";
+  const neonRed = "#ef4444";
+  const neonYellow = "#f59e0b";
+  
   return (
     <DashboardLayout title="Dashboard de Clientes">
       {/* Quick Stats */}
@@ -248,42 +256,42 @@ const Dashboard = () => {
         <StatCard 
           title="Total Clientes"
           value="156"
-          icon={<Users size={24} className="text-[hsl(var(--neon-blue))]" />}
+          icon={<Users size={24} color={neonBlue} />}
           change={12}
           changeType="increase"
-          iconBgColor="hsl(var(--neon-blue) / 0.2)"
-          accentColor="hsl(var(--neon-blue))"
+          iconBgColor={`${neonBlue}33`}
+          accentColor={neonBlue}
         />
         
         <StatCard 
           title="Novos Leads"
           value="32"
-          icon={<UserPlus size={24} className="text-[hsl(var(--neon-purple))]" />}
+          icon={<UserPlus size={24} color={neonPurple} />}
           change={8}
           changeType="increase"
-          iconBgColor="hsl(var(--neon-purple) / 0.2)"
-          accentColor="hsl(var(--neon-purple))"
+          iconBgColor={`${neonPurple}33`}
+          accentColor={neonPurple}
         />
         
         <StatCard 
           title="Conversão"
           value="68%"
-          icon={<PieChart size={24} className="text-[hsl(var(--neon-green))]" />}
+          icon={<PieChart size={24} color={neonGreen} />}
           change={0}
           changeType="unchanged"
           changeLabel="sem alteração"
-          iconBgColor="hsl(var(--neon-green) / 0.2)"
-          accentColor="hsl(var(--neon-green))"
+          iconBgColor={`${neonGreen}33`}
+          accentColor={neonGreen}
         />
         
         <StatCard 
           title="Automação IA"
           value="78%"
-          icon={<Bot size={24} className="text-[hsl(var(--neon-red))]" />}
+          icon={<Bot size={24} color={neonRed} />}
           change={5}
           changeType="increase"
-          iconBgColor="hsl(var(--neon-red) / 0.2)"
-          accentColor="hsl(var(--neon-red))"
+          iconBgColor={`${neonRed}33`}
+          accentColor={neonRed}
         />
       </GridContainer>
       
@@ -302,43 +310,67 @@ const Dashboard = () => {
             >
               <defs>
                 <linearGradient id="colorNovos" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(var(--neon-blue))" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="hsl(var(--neon-blue))" stopOpacity={0.1}/>
+                  <stop offset="5%" stopColor={neonBlue} stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor={neonBlue} stopOpacity={0.1}/>
                 </linearGradient>
                 <linearGradient id="colorIA" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(var(--neon-purple))" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="hsl(var(--neon-purple))" stopOpacity={0.1}/>
+                  <stop offset="5%" stopColor={neonPurple} stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor={neonPurple} stopOpacity={0.1}/>
                 </linearGradient>
               </defs>
               <XAxis 
                 dataKey="name" 
-                stroke="hsl(var(--muted-foreground))" 
+                stroke="rgba(255,255,255,0.5)" 
                 fontSize={12}
+                axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                tickLine={{ stroke: 'rgba(255,255,255,0.1)' }}
               />
-              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted) / 0.4)" />
+              <YAxis 
+                stroke="rgba(255,255,255,0.5)" 
+                fontSize={12} 
+                axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                tickLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+              />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: 'hsl(var(--background))', 
-                  borderColor: 'hsl(var(--border))', 
-                  fontSize: '0.875rem' 
+                  backgroundColor: '#1e1e2f', 
+                  borderColor: 'rgba(255,255,255,0.1)', 
+                  fontSize: '0.875rem',
+                  borderRadius: '4px',
+                  boxShadow: '0 4px 20px 0 rgba(0,0,0,0.5)'
                 }} 
+                itemStyle={{ color: '#fff' }}
+                labelStyle={{ color: 'rgba(255,255,255,0.7)' }}
+              />
+              <Legend 
+                wrapperStyle={{ 
+                  fontSize: '12px', 
+                  color: 'rgba(255,255,255,0.5)',
+                  paddingTop: '10px'
+                }}
               />
               <Area 
                 type="monotone" 
                 dataKey="novosClientes" 
                 name="Novos Clientes"
-                stroke="hsl(var(--neon-blue))" 
+                stroke={neonBlue} 
                 fillOpacity={1} 
                 fill="url(#colorNovos)" 
+                strokeWidth={2}
+                animationDuration={1500}
+                animationBegin={300}
               />
               <Area 
                 type="monotone" 
                 dataKey="comIAAtiva" 
                 name="Com IA Ativa"
-                stroke="hsl(var(--neon-purple))" 
+                stroke={neonPurple} 
                 fillOpacity={1} 
                 fill="url(#colorIA)" 
+                strokeWidth={2}
+                animationDuration={1500}
+                animationBegin={600}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -346,28 +378,61 @@ const Dashboard = () => {
         
         <ChartCard 
           title="Uso de Automação CRM" 
-          icon={<BarChart2 size={18} className="text-[hsl(var(--neon-blue))]" />}
+          icon={<BarChart2 size={18} color={neonBlue} />}
         >
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={350}>
             <RechartsPieChart>
               <Pie
-                data={crmUsageData}
+                data={crmUsageData.map(item => ({
+                  ...item,
+                  color: item.name === 'Sem CRM' ? neonRed : 
+                         item.name === 'CRM Básico' ? neonYellow : 
+                         item.name === 'CRM Avançado' ? neonBlue : neonPurple
+                }))}
                 cx="50%"
                 cy="50%"
                 innerRadius={60}
-                outerRadius={80}
+                outerRadius={90}
                 paddingAngle={5}
                 dataKey="value"
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 labelLine={false}
+                animationBegin={300}
+                animationDuration={1500}
               >
                 {crmUsageData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={
+                      entry.name === 'Sem CRM' ? neonRed : 
+                      entry.name === 'CRM Básico' ? neonYellow : 
+                      entry.name === 'CRM Avançado' ? neonBlue : neonPurple
+                    } 
+                    stroke="rgba(0,0,0,0.2)" 
+                    strokeWidth={1} 
+                  />
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value) => [`${value}%`, 'Percentagem']}
-                contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))' }}
+                formatter={(value) => [`${value}%`, "Porcentagem"]}
+                contentStyle={{ 
+                  backgroundColor: '#1e1e2f', 
+                  borderColor: 'rgba(255,255,255,0.1)', 
+                  fontSize: '0.875rem',
+                  borderRadius: '4px',
+                  boxShadow: '0 4px 20px 0 rgba(0,0,0,0.5)'
+                }}
+                itemStyle={{ color: '#fff' }}
+                labelStyle={{ color: 'rgba(255,255,255,0.7)' }}
+              />
+              <Legend 
+                layout="vertical" 
+                verticalAlign="middle" 
+                align="right" 
+                wrapperStyle={{ 
+                  fontSize: '12px', 
+                  color: 'rgba(255,255,255,0.7)',
+                  paddingLeft: '20px'
+                }}
               />
             </RechartsPieChart>
           </ResponsiveContainer>
@@ -375,7 +440,7 @@ const Dashboard = () => {
       </ChartGrid>
       
       {/* Clients Table */}
-      <div className="mt-8">
+      <Box sx={{ mt: 4 }}>
         <ClientsTable 
           clients={clientsData?.clients || exampleClients}
           totalClients={156}
@@ -384,14 +449,16 @@ const Dashboard = () => {
           onDeleteClient={handleDeleteClient}
           onAddClient={handleAddClient}
         />
-      </div>
+      </Box>
       
       {/* Detail Panels */}
-      <DetailPanel 
-        segmentos={segmentosData}
-        iaMetrics={iaMetricsData}
-        challenges={challengesData}
-      />
+      <Box sx={{ mt: 4 }}>
+        <DetailPanel 
+          segmentos={segmentosData}
+          iaMetrics={iaMetricsData}
+          challenges={challengesData}
+        />
+      </Box>
     </DashboardLayout>
   );
 };
