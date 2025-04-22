@@ -45,8 +45,8 @@ const PanelTitle = styled(CardTitle)`
   gap: 0.5rem;
 `;
 
-const IconWrapper = styled.span<{ color: string }>`
-  color: ${({ color }) => color};
+const IconWrapper = styled.span<{ $color: string }>`
+  color: ${({ $color }) => $color};
 `;
 
 const PanelContent = styled(CardContent)`
@@ -113,10 +113,10 @@ const ProgressBar = styled.div`
   overflow: hidden;
 `;
 
-const ProgressFill = styled.div<{ width: string; gradient: string }>`
+const ProgressFill = styled.div<{ $width: string; $gradient: string }>`
   height: 100%;
-  width: ${({ width }) => width};
-  background: ${({ gradient }) => gradient};
+  width: ${({ $width }) => $width};
+  background: ${({ $gradient }) => $gradient};
 `;
 
 const ChallengeCard = styled.div`
