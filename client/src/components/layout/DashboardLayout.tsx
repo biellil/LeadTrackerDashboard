@@ -54,7 +54,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
         </MainContainer>
         
         <Footer>
-          &copy; {new Date().getFullYear()} NexusAI Dashboard. Todos os direitos reservados.
+          &copy; {new Date().getFullYear()} SDR IA Dashboard. Todos os direitos reservados.
         </Footer>
       </MainContent>
     </div>

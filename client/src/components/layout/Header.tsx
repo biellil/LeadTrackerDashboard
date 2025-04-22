@@ -108,10 +108,7 @@ const Header = ({ title, onOpenSidebar }: HeaderProps) => {
           <NotificationIndicator />
         </NotificationButton>
         
-        <ProfileSection>
-          <Avatar />
-          <Username>Admin</Username>
-        </ProfileSection>
+
       </HeaderSection>
     </HeaderContainer>
   );

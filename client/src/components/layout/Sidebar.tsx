@@ -139,7 +139,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             <LogoIcon className="gradient-blue-purple">
               <Bot size={20} />
             </LogoIcon>
-            <h1 className="text-xl font-bold text-white">NexusAI</h1>
+            <h1 className="text-xl font-bold text-white">SDR IA</h1>
           </Logo>
           <button className="md:hidden text-gray-400 hover:text-white" onClick={onClose}>
             <X size={20} />
@@ -176,22 +176,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               <span>Negócios</span>
             </NavItem>
             
-            <NavItem href="/configuracoes" $active={location === "/configuracoes"} onClick={handleClick}>
-              <IconWrapper>
-                <Settings size={20} />
-              </IconWrapper>
-              <span>Configurações</span>
-            </NavItem>
           </div>
-          
-          <FooterSection>
-            <NavItem href="/ajuda" $active={location === "/ajuda"} onClick={handleClick}>
-              <IconWrapper>
-                <HelpCircle size={20} />
-              </IconWrapper>
-              <span>Ajuda & Suporte</span>
-            </NavItem>
-          </FooterSection>
         </SidebarNav>
       </SidebarContainer>
       
