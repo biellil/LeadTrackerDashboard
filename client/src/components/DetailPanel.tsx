@@ -19,7 +19,7 @@ const PanelContainer = styled.div`
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: 2rem;
-  
+
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -83,7 +83,7 @@ const LegendLabel = styled.span`
 
 const ProgressContainer = styled.div`
   margin-bottom: 2rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -125,7 +125,7 @@ const ChallengeCard = styled.div`
   border-radius: 0.5rem;
   border: 1px solid hsl(var(--border));
   margin-bottom: 1.5rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -193,7 +193,7 @@ const DetailPanel = ({ segmentos, iaMetrics, challenges }: DetailPanelProps) => 
       <PanelCard>
         <PanelHeader>
           <PanelTitle>
-            <IconWrapper color="hsl(var(--neon-blue))">
+            <IconWrapper $color="hsl(var(--neon-blue))">
               <BarChart2 size={20} />
             </IconWrapper>
             Segmentos de Empresas
@@ -235,12 +235,12 @@ const DetailPanel = ({ segmentos, iaMetrics, challenges }: DetailPanelProps) => 
           </LegendGrid>
         </CardContent>
       </PanelCard>
-      
+
       {/* Experiência com IA */}
       <PanelCard>
         <PanelHeader>
           <PanelTitle>
-            <IconWrapper color="hsl(var(--neon-purple))">
+            <IconWrapper $color="hsl(var(--neon-purple))">
               <Bot size={20} />
             </IconWrapper>
             Experiência com IA
@@ -254,18 +254,18 @@ const DetailPanel = ({ segmentos, iaMetrics, challenges }: DetailPanelProps) => 
                 <ProgressValue>{metric.value}%</ProgressValue>
               </ProgressHeader>
               <ProgressBar>
-                <ProgressFill width={`${metric.value}%`} gradient={metric.gradient} />
+                <ProgressFill $width={`${metric.value}%`} $gradient={metric.gradient} />
               </ProgressBar>
             </ProgressContainer>
           ))}
         </PanelContent>
       </PanelCard>
-      
+
       {/* Principais Desafios */}
       <PanelCard>
         <PanelHeader>
           <PanelTitle>
-            <IconWrapper color="hsl(var(--neon-green))">
+            <IconWrapper $color="hsl(var(--neon-green)">
               <Target size={20} />
             </IconWrapper>
             Principais Desafios

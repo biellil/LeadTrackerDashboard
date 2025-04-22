@@ -21,7 +21,7 @@ import DashboardLayout from "../components/DashboardLayout";
 import StatCard from "../components/StatCard";
 import ChartCard from "../components/ChartCard";
 import ClientsTable from "../components/ClientsTable";
-import DetailPanel from "../components/dashboard/DetailPanel";
+import DetailPanel from "../components/DetailPanel";
 import { ClienteWithNegocio } from "../types/client";
 import { 
   AreaChart, 
@@ -254,8 +254,8 @@ const Dashboard = () => {
   return (
     <DashboardLayout title="Dashboard de Clientes">
       {/* Quick Stats */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={3}>
+      <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12 }}>
+        <Grid xs={12} sm={6} md={3}>
           <StatCard 
             title="Total Clientes"
             value="156"
